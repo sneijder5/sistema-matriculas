@@ -33,6 +33,15 @@ npm start
 
 Luego abrir `http://localhost:3000` en el navegador.
 
-## Usuario administrador por defecto
-- **Email:** admin@matriculas.com
-- **Contraseña:** admin123
+## Usuarios de prueba
+
+Al iniciar el servidor por primera vez se crean automáticamente los 4 usuarios de prueba (uno por cada rol) para facilitar la verificación del sistema:
+
+| Rol | Email | Contraseña |
+|-----|-------|-----------|
+| Administrador | `admin@matriculas.com` | `admin123` |
+| Profesor | `carlos@uniajc.edu.co` | `prof123` |
+| Estudiante | `maria@uniajc.edu.co` | `est123` |
+| Soporte | `soporte@uniajc.edu.co` | `sop123` |
+
+> **Nota:** En la versión final solo el administrador puede crear, editar o desactivar usuarios. Estas credenciales están precargadas únicamente con fines académicos para que el evaluador pueda probar cada panel rápidamente sin pasos previos.

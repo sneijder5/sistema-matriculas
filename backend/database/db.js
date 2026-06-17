@@ -122,13 +122,22 @@ async function initDB() {
         FOREIGN KEY (materia_id) REFERENCES materias(id)
     )`);
 
-    // crear admin por defecto si no existe
-    const adminExiste = statement("SELECT id FROM usuarios WHERE email = ?").get('admin@matriculas.com');
-    if (!adminExiste) {
-        const hash = bcrypt.hashSync('admin123', 10);
-        statement("INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, ?)")
-            .run('Administrador', 'admin@matriculas.com', hash, 'administrador');
-        console.log('Usuario admin creado: admin@matriculas.com / admin123');
+    // sembrar usuarios de prueba (uno por rol) para facilitar las pruebas
+    const usuariosPrueba = [
+        { nombre: 'Administrador',    email: 'admin@matriculas.com',   password: 'admin123', rol: 'administrador' },
+        { nombre: 'Carlos Profesor',  email: 'carlos@uniajc.edu.co',   password: 'prof123',  rol: 'profesor' },
+        { nombre: 'Maria Estudiante', email: 'maria@uniajc.edu.co',    password: 'est123',   rol: 'estudiante' },
+        { nombre: 'Soporte Tecnico',  email: 'soporte@uniajc.edu.co',  password: 'sop123',   rol: 'soporte' }
+    ];
+
+    const insertUsuario = statement("INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, ?)");
+    const buscarUsuario = statement("SELECT id FROM usuarios WHERE email = ?");
+
+    for (const u of usuariosPrueba) {
+        if (!buscarUsuario.get(u.email)) {
+            insertUsuario.run(u.nombre, u.email, bcrypt.hashSync(u.password, 10), u.rol);
+            console.log(`Usuario creado [${u.rol}]: ${u.email} / ${u.password}`);
+        }
     }
 
     save();
