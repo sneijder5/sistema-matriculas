@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Profesor</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Panel Profesor</h2>
+            <p id="nombreProfesor"></p>
+        </div>
+        <nav>
+            <a onclick="mostrarSeccion('calificaciones')" class="activo">Calificaciones</a>
+            <a onclick="mostrarSeccion('reportes')">Reportes</a>
+        </nav>
+        <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <!-- CALIFICACIONES -->
+        <section id="seccion-calificaciones" class="seccion activa">
+            <h2>Gestión de Calificaciones</h2>
+            <div class="card">
+                <label style="font-weight:500;display:block;margin-bottom:8px">Selecciona una materia:</label>
+                <select id="selectMateria" onchange="cargarEstudiantes()" style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.9rem">
+                    <option value="">-- Mis materias --</option>
+                </select>
+            </div>
+            <div class="card tabla-contenedor" id="tablaCalifContenedor" style="display:none">
+                <table>
+                    <thead><tr><th>Estudiante</th><th>Email</th><th>Nota (0-5)</th><th>Acciones</th></tr></thead>
+                    <tbody id="tablaEstudiantes"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- REPORTES -->
+        <section id="seccion-reportes" class="seccion">
+            <h2>Reportes de Estudiantes</h2>
+            <div id="listaReportes"></div>
+        </section>
+    </main>
+</div>
+
+<!-- MODAL RESPONDER -->
+<div id="modalResponder" class="modal-overlay oculto">
+    <div class="modal">
+        <h3>Responder Reporte</h3>
+        <input type="hidden" id="reporteId">
+        <p id="descripcionReporte" style="background:#f1f5f9;padding:12px;border-radius:8px;margin-bottom:16px;font-size:0.9rem"></p>
+        <div class="campo">
+            <label>Tu respuesta</label>
+            <textarea id="inputRespuesta" rows="4" style="resize:vertical"></textarea>
+        </div>
+        <div class="modal-acciones">
+            <button class="btn-secondary" onclick="cerrarModal('modalResponder')">Cancelar</button>
+            <button class="btn-primary" style="width:auto" onclick="enviarRespuesta()">Responder</button>
+        </div>
+    </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/profesor.js"></script>
+</body>
+</html>

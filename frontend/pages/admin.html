@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Panel Administrador</h2>
+            <p id="nombreAdmin"></p>
+        </div>
+        <nav>
+            <a onclick="mostrarSeccion('usuarios')" class="activo">Usuarios</a>
+            <a onclick="mostrarSeccion('cursos')">Cursos y Materias</a>
+            <a onclick="mostrarSeccion('matriculas')">Matrículas</a>
+        </nav>
+        <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <!-- USUARIOS -->
+        <section id="seccion-usuarios" class="seccion activa">
+            <h2>Gestión de Usuarios</h2>
+            <div class="card">
+                <button class="btn-primary" style="width:auto;padding:8px 20px" onclick="abrirModalUsuario()">+ Nuevo Usuario</button>
+            </div>
+            <div class="card tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th><th>Email</th><th>Rol</th><th>Estado</th><th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CURSOS -->
+        <section id="seccion-cursos" class="seccion">
+            <h2>Cursos y Materias</h2>
+            <div class="card">
+                <button class="btn-primary" style="width:auto;padding:8px 20px" onclick="abrirModalCurso()">+ Nuevo Curso</button>
+            </div>
+            <div id="listaCursos"></div>
+        </section>
+
+        <!-- MATRÍCULAS -->
+        <section id="seccion-matriculas" class="seccion">
+            <h2>Matrículas</h2>
+            <div class="card">
+                <button class="btn-primary" style="width:auto;padding:8px 20px" onclick="abrirModalMatricula()">+ Nueva Matrícula</button>
+            </div>
+            <div class="card tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr><th>Estudiante</th><th>Curso</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr>
+                    </thead>
+                    <tbody id="tablaMatriculas"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- MODAL USUARIO -->
+<div id="modalUsuario" class="modal-overlay oculto">
+    <div class="modal">
+        <h3 id="tituloModalUsuario">Nuevo Usuario</h3>
+        <input type="hidden" id="usuarioId">
+        <div class="campo"><label>Nombre</label><input type="text" id="inputNombre"></div>
+        <div class="campo"><label>Email</label><input type="email" id="inputEmail"></div>
+        <div class="campo">
+            <label>Contraseña</label><input type="password" id="inputPassword" placeholder="Dejar vacío para no cambiar">
+        </div>
+        <div class="campo">
+            <label>Rol</label>
+            <select id="inputRol">
+                <option value="estudiante">Estudiante</option>
+                <option value="profesor">Profesor</option>
+                <option value="soporte">Soporte</option>
+                <option value="administrador">Administrador</option>
+            </select>
+        </div>
+        <div id="errorModalUsuario" class="error-msg oculto"></div>
+        <div class="modal-acciones">
+            <button class="btn-secondary" onclick="cerrarModal('modalUsuario')">Cancelar</button>
+            <button class="btn-primary" style="width:auto" onclick="guardarUsuario()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CURSO -->
+<div id="modalCurso" class="modal-overlay oculto">
+    <div class="modal">
+        <h3>Nuevo Curso</h3>
+        <div class="campo"><label>Nombre del curso</label><input type="text" id="inputNombreCurso"></div>
+        <div class="campo"><label>Descripción</label><input type="text" id="inputDescCurso"></div>
+        <div id="errorModalCurso" class="error-msg oculto"></div>
+        <div class="modal-acciones">
+            <button class="btn-secondary" onclick="cerrarModal('modalCurso')">Cancelar</button>
+            <button class="btn-primary" style="width:auto" onclick="guardarCurso()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL MATERIA -->
+<div id="modalMateria" class="modal-overlay oculto">
+    <div class="modal">
+        <h3>Nueva Materia</h3>
+        <input type="hidden" id="cursoIdMateria">
+        <div class="campo"><label>Nombre de la materia</label><input type="text" id="inputNombreMateria"></div>
+        <div class="campo">
+            <label>Profesor asignado</label>
+            <select id="inputProfesorMateria"><option value="">Sin asignar</option></select>
+        </div>
+        <div class="modal-acciones">
+            <button class="btn-secondary" onclick="cerrarModal('modalMateria')">Cancelar</button>
+            <button class="btn-primary" style="width:auto" onclick="guardarMateria()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL MATRICULA -->
+<div id="modalMatricula" class="modal-overlay oculto">
+    <div class="modal">
+        <h3>Nueva Matrícula</h3>
+        <div class="campo">
+            <label>Estudiante</label>
+            <select id="selectEstudiante"></select>
+        </div>
+        <div class="campo">
+            <label>Curso</label>
+            <select id="selectCursoMatricula"></select>
+        </div>
+        <div id="errorModalMatricula" class="error-msg oculto"></div>
+        <div class="modal-acciones">
+            <button class="btn-secondary" onclick="cerrarModal('modalMatricula')">Cancelar</button>
+            <button class="btn-primary" style="width:auto" onclick="guardarMatricula()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>
