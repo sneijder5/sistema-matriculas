@@ -7,7 +7,6 @@ Universidad Antonio José Camacho — Grupo 441A
 - Sofía Olave Villa
 - Brandon Esneider López Quinchua
 - Santiago Naranjo Alba
-- Juan Felipe Castro Camelo
 
 ## Descripción
 Plataforma web para digitalizar la gestión académica de instituciones educativas. Permite administrar usuarios, cursos, calificaciones y matrículas mediante un sistema de roles.
