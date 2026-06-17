@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Soporte</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Panel Soporte</h2>
+            <p id="nombreSoporte"></p>
+        </div>
+        <nav>
+            <a onclick="mostrarSeccion('pendientes')" class="activo">Reclamos Pendientes</a>
+            <a onclick="mostrarSeccion('resueltos')">Reclamos Resueltos</a>
+            <a onclick="mostrarSeccion('sin-notas')">Materias Sin Notas</a>
+        </nav>
+        <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <!-- PENDIENTES -->
+        <section id="seccion-pendientes" class="seccion activa">
+            <h2>Reclamos Pendientes</h2>
+            <div id="listaPendientes"></div>
+        </section>
+
+        <!-- RESUELTOS -->
+        <section id="seccion-resueltos" class="seccion">
+            <h2>Reclamos Resueltos</h2>
+            <div id="listaResueltos"></div>
+        </section>
+
+        <!-- SIN NOTAS -->
+        <section id="seccion-sin-notas" class="seccion">
+            <h2>Materias sin Reporte de Notas</h2>
+            <div class="card tabla-contenedor">
+                <table>
+                    <thead><tr><th>Materia</th><th>Curso</th><th>Profesor</th></tr></thead>
+                    <tbody id="tablaSinNotas"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/soporte.js"></script>
+</body>
+</html>

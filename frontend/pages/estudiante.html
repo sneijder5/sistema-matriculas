@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Estudiante</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Panel Estudiante</h2>
+            <p id="nombreEstudiante"></p>
+        </div>
+        <nav>
+            <a onclick="mostrarSeccion('notas')" class="activo">Mis Notas</a>
+            <a onclick="mostrarSeccion('matricula')">Mi Matrícula</a>
+            <a onclick="mostrarSeccion('reportes')">Mis Reportes</a>
+        </nav>
+        <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <!-- NOTAS -->
+        <section id="seccion-notas" class="seccion activa">
+            <h2>Mis Notas</h2>
+            <div class="card tabla-contenedor">
+                <table>
+                    <thead><tr><th>Curso</th><th>Materia</th><th>Nota</th><th>Última actualización</th></tr></thead>
+                    <tbody id="tablaNotas"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MATRÍCULA -->
+        <section id="seccion-matricula" class="seccion">
+            <h2>Mi Matrícula</h2>
+            <div class="card" id="infoMatricula">
+                <p>Cargando...</p>
+            </div>
+        </section>
+
+        <!-- REPORTES -->
+        <section id="seccion-reportes" class="seccion">
+            <h2>Mis Reportes</h2>
+            <div class="card">
+                <button class="btn-primary" style="width:auto;padding:8px 20px" onclick="abrirModalReporte()">+ Nuevo Reporte</button>
+            </div>
+            <div id="listaReportes"></div>
+        </section>
+    </main>
+</div>
+
+<!-- MODAL REPORTE -->
+<div id="modalReporte" class="modal-overlay oculto">
+    <div class="modal">
+        <h3>Crear Reporte</h3>
+        <div class="campo">
+            <label>Materia</label>
+            <select id="selectMateriaReporte"></select>
+        </div>
+        <div class="campo">
+            <label>Descripción del reclamo o duda</label>
+            <textarea id="inputDescReporte" rows="4" style="resize:vertical"></textarea>
+        </div>
+        <div id="errorReporte" class="error-msg oculto"></div>
+        <div class="modal-acciones">
+            <button class="btn-secondary" onclick="cerrarModal('modalReporte')">Cancelar</button>
+            <button class="btn-primary" style="width:auto" onclick="enviarReporte()">Enviar</button>
+        </div>
+    </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/estudiante.js"></script>
+</body>
+</html>
