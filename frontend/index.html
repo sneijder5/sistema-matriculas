@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Matrículas - Login</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="pagina-login">
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Sistema de Matrículas</h1>
+            <p class="subtitulo">Universidad Antonio José Camacho</p>
+
+            <form id="formLogin">
+                <div class="campo">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+                </div>
+                <div class="campo">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <div id="mensajeError" class="error-msg oculto"></div>
+                <button type="submit" class="btn-primary" id="btnLogin">Iniciar Sesión</button>
+            </form>
+
+            <p class="link-recuperar">
+                <a href="#" id="linkRecuperar">¿Olvidaste tu contraseña?</a>
+            </p>
+
+            <div id="formRecuperar" class="oculto">
+                <hr>
+                <h3>Recuperar contraseña</h3>
+                <div class="campo">
+                    <input type="email" id="emailRecuperar" placeholder="Tu correo registrado">
+                </div>
+                <button class="btn-secondary" id="btnRecuperar">Enviar instrucciones</button>
+                <div id="mensajeRecuperar" class="oculto"></div>
+            </div>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+</body>
+</html>
